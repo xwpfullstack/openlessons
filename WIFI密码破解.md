@@ -87,7 +87,7 @@ wireshark左上角，查找list那个钮。
 ### 安装
 
 	sudo apt-get install build-essential libssl-dev pkg-config libnl-3-dev libnl-genl-3-dev
-	tar xvf aircrack-ng-1.2-rc2.tar.gz
+	tar zxvf aircrack-ng-1.2-rc2.tar.gz
 	cd aircrack-ng-1.2-rc2
 	make
 	sudo make install
@@ -102,11 +102,11 @@ wireshark左上角，查找list那个钮。
 
 3. 探测无线网络，选取破解路由器对象
 
-	 sudo airodump-ng  wlang0mon
+	 sudo airodump-ng  wlan0mon
 
 4. 设定监控频道，抓取被选定路由器的数据包，始终运行
 
-	sudo airodump-ng  --ivs  -w  linuxcpp  -c  6  wlang0mon
+	sudo airodump-ng  --ivs  -w  linuxcpp  -c  6  wlan0mon
 
 	捕获的包存入linuxcp-0x.ivs 文件。x为序号
 
