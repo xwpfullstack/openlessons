@@ -75,6 +75,8 @@ wireshark左上角，查找list那个钮。
 
 ##  Wifi密码破解原理剖析
 
+![wifi密码破解原理剖析](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/wifi.png "wifi密码破解原理剖析")
+
 画图示意
 
 ## Aircrack-ng
