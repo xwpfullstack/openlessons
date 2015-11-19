@@ -53,11 +53,16 @@
 
 如果Deauth攻击成功，airodump-ng捕获handshake ，此时可以ctrl+c终止airodump-ng抓包。
 
+![四次握手包](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/%E5%9B%9B%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%8C%85.png "四次握手包")
+
 6. aircrack-ng 穷举字典，暴力破解
 
 	sudo aircrack-ng  -w  dic  linuxcpp-01.ivs
 
 	破解成功与否取决与字典是否涵盖全面，破解速度取决于硬件计算性能和字典优化
+![破解](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/1.png "破解")
+
+![成功破解](https://raw.githubusercontent.com/xwpfullstack/openlessons/dev/img/%E7%A0%B4%E8%A7%A3%E6%88%90%E5%8A%9F.png "成功破解")
 
 ## 字典开发
 
