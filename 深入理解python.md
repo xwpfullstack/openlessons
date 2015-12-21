@@ -898,36 +898,1798 @@ Python字典包含了以下内置函数：
 
 ## 二. 字符串处理与特殊函数
 
+用引号括起来的字符集合称之为字符串.引号可以是一对单引号,双引号,三引号(单/双).
+	
+**
+备注：python中三引号可以将复杂的字符串进行复制:
+python三引号允许一个字符串跨多行，字符串中可以包含换行符、制表符以及其他特殊字符。
+三引号的语法是一对连续的单引号或者双引号（通常都是成对的用）。
+**
+
+创建字符串很简单，只要为变量分配一个值即可。例如：
+	
+	var1 = 'Hello World!'
+	var2 = "Python Programming"
+	var3 = '''hello chuanzhiboke'''
+	var4 = """hello chuanzhiboke"""
+	
+但是如果需要输出 Hello "dear"怎么办呢?
+
+	print "hello \"dear\""	#利用\的转义意义
+	print '''hello "dear"'''
+
+### Python访问字符串中的值
+
+Python不支持单字符类型，单字符也在Python也是作为一个字符串使用。	
+
+Python访问子字符串，可以使用方括号来截取字符串——即分片操作
+
+	var1 = 'Hello World!'
+	var2 = "Python Programming"
+	print "var1[0]: ", var1[0]
+	print "var2[1:5]: ", var2[1:5]
+	以上实例执行结果：
+	var1[0]:  H
+	var2[1:5]:  ytho
+
+### Python字符串更新
+
+你可以对已存在的字符串进行修改，并赋值给另一个变量.
+
+	var1 = 'Hello World!'
+	print "Updated mystr :- ", var1[:6] + 'Python'
+	Updated mystr :-  Hello Python
+
+### Python字符串运算符
+
+下表实例变量a值为字符串"Hello"，b变量值为"Python"：
+
+	操作符	描述			实例
+	+	字符串连接			a + b 输出结果： HelloPython
+	*	重复输出字符串		a*2 输出结果：HelloHello
+	[]	通过索引获取字符		a[1] 输出结果 e
+	[:]  截取字符串中的一部分		a[1:4] 输出结果 ell
+	in	成员运算符 			如果字符串中包含给定的字符返回 True 
+	not in	成员运算符			如果字符串中不包含给定的字符返回 True
+	r/R	原始字符串			字符串直接按照字面的意思来使用，没有转义或不能打印的字符	
+
+原始字符串除在字符串的第一个引号前加上字母"r"（可以大小写）以外，与普通字符串有着几乎完全相同的语法。
+
+	print r'hello\n' 
+
+### Python字符串格式化
+
+	Python 支持格式化字符串的输出 。
+	在 Python 中，字符串格式化使用与 C 中 sprintf 函数一样的语法。
+	print "My name is %s and weight is %d kg!" % ('Zara', 21) 
+
+
 ### 字符串各种函数
-### 函数传参
+
+
+以下start和end可以缺省参数
+
+	mystr = 'hello world itcast and itcastcpp'
+
+检测 str 是否包含在 mystr中，如果是返回开始的索引值，否则返回-1
+
+	mystr.find(str, start=0, end=len(mystr))
+
+跟find()方法一样，只不过如果str不在 mystr中会报一个异常.
+
+	mystr.index(str, start=0, end=len(mystr)) 
+
+返回 str在start和end之间 在 mystr里面出现的次数
+
+	mystr.count(str, start=0, end=len(mystr))
+
+以 encoding 指定的编码格式解码 mystr，如果出错默认报一个 ValueError 的 异 常 ， 除非 errors 指定的是 'ignore' 或 者'replace'
+
+	mystr.decode(encoding='UTF-8', errors='strict') 
+
+以 encoding 指定的编码格式编码 mystr，如果出错默认报一个ValueError 的异常，除非 errors 指定的是'ignore'或者'replace'
+
+	mystr.encode(encoding='UTF-8', errors='strict')	
+	
+把 mystr 中的 str1 替换成 str2,如果 count 指定，则替换不超过 count 次.
+
+	mystr.replace(str1, str2,  mystr.count(str1))
+	
+以 str 为分隔符切片 mystr，如果 maxsplit有指定值，则仅分隔 maxsplit 个子字符串
+
+	mystr.split(str=" ", 2)	
+	
+把字符串的第一个字符大写
+
+	mystr.capitalize()
+
+返回一个原字符串居中,并使用空格填充至长度 width 的新字符串
+
+	mystr.center(width)    
+
+检查字符串(start,end)是否以obj结束，如果是返回True,否则返回 False.
+
+	mystr.endswith(obj, 0, len(mystr))
+
+检查字符串是否是以 obj 开头, 是则返回 True，否则返回 False
+
+	mystr.startswith()
+
+把字符串 mystr 中的 tab 符号转为空格，默认的空格数 tabsize 是 8.
+
+	mystr.expandtabs(tabsize=8)	
+
+如果 mystr 至少有一个数字并且所有字符都是字母或数字则返回 True,否则返回 False
+
+	mystr.isalnum()  
+	
+如果 mystr 至少有一个字符并且所有字符都是字母(不含数字和空格)则返回 True,否则返回 False
+
+	mystr.isalpha()  
+	
+
+如果 mystr 只包含数字则返回 True 否则返回 False.
+
+	mystr.isdigit() 
+	
+
+ 如果 mystr 中只包含空格，则返回 True，否则返回 False.
+
+	mystr.isspace()   
+
+如果 mystr 是标题化的(见 title())则返回 True，否则返回 False
+
+	mystr.istitle()   	
+
+如果 mystr 中包含至少一个区分大小写的字符并且所有这些(区分大小写的)字符都是大写，则返回 True，否则返回 False
+
+	mystr.isupper()    
+	
+转换 mystr 中所有大写字符为小写.
+
+	mystr.lower()		
+
+转换 mystr 中的小写字母为大写
+
+	mystr.upper()			
+
+ mystr 中每个字符后面插入str,构造出一个新的字符串
+
+	mystr.join(str)
+
+返回一个原字符串左对齐,并使用空格填充至长度 width 的新字符串
+
+	mystr.ljust(width) 
+	
+返回一个原字符串右对齐,并使用空格填充至长度 width 的新字符串
+
+	mystr.rjust(width)	
+
+截掉 mystr 左边的空格
+
+	mystr.lstrip()		
+	
+删除 mystr 字符串末尾的空格.
+
+	mystr.rstrip()	
+
+类似于 find()函数，不过是从右边开始查找.
+
+	mystr.rfind(str, start=0,end=len(mystr) )	
+	
+类似于 index()，不过是从右边开始.
+
+	mystr.rindex( str, start=0,end=len(mystr))
+
+
+把mystr以str分割成三部分,str前，str和str后
+
+	mystr.partition(str)
+
+类似于 partition()函数,不过是从右边开始.
+
+	mystr.rpartition(str)
+	
+
+按照行分隔，返回一个包含各行作为元素的列表
+
+	mystr.splitlines()  
+	
+
+	
+	
+返回长度为 width 的字符串，原字符串 mystr 右对齐，前面填充0
+
+	mystr.zfill(width)		
+	
+检查字符串是否只包含十进制字符。这种方法只存在于unicode对象。
+
+	mystr.isdecimal()
+
+
+
+### 函数高级
+
+#### 定义一个函数
+
+你可以定义一个由自己想要功能的函数，以下是简单的规则：
+
+函数代码块以def关键词开头，后接函数标识符名称和圆括号()。
+任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。
+函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。
+函数内容以冒号起始，并且缩进。
+
+Return[expression]结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None
+	
+	语法
+
+	def functionname( parameters ):
+	   "函数_文档字符串"
+	   function_suite
+	   return [expression]
+	默认情况下，参数值和参数名称是按函数声明中定义的的顺序匹配起来的。
+	
+	实例
+
+	以下为一个简单的Python函数，它将一个字符串作为传入参数，再打印到标准显示设备上。
+	def printme( str ):
+   		"打印传入的字符串到标准显示设备上"
+   		print str
+   		return
+
+#### 函数调用
+
+	定义一个函数只给了函数一个名称，指定了函数里包含的参数，和代码块结构。
+	这个函数的基本结构完成以后，你可以通过另一个函数调用执行，也可以直接从Python提示符执行。
+
+	#coding=utf-8
+	# Function definition is here
+	def printme( str ):
+	   "打印任何传入的字符串"
+	   print str;
+	   return;
+	# Now you can call printme function
+	printme("我要调用用户自定义函数!");
+	printme("再次调用同一函数");
+	以上实例输出结果：
+	
+	我要调用用户自定义函数!
+	再次调用同一函数
+
+####	按值传递参数和按引用传递参数
+
+    1.按值传递,单个变量
+    2.按引用传递
+	如果你在函数里修改了参数，那么在调用这个函数的函数里，原始的参数也被改变了。例如：
+	# 可写函数说明
+	def changeme( mylist ):
+	   "修改传入的列表"
+	   mylist.append([1,2,3,4]);
+	   print "函数内取值: ", mylist
+	   return
+	 
+	# 调用changeme函数
+	mylist = [10,20,30];
+	changeme( mylist );
+	print "函数外取值: ", mylist
+	传入函数的和在末尾添加新内容的对象用的是同一个引用。故输出结果如下：
+	
+	函数内取值:  [10, 20, 30, [1, 2, 3, 4]]
+	函数外取值:  [10, 20, 30, [1, 2, 3, 4]]
+#### 参数
+	以下是调用函数时可使用的正式参数类型：
+	
+	必备参数
+	命名参数
+	缺省参数
+	不定长参数
+	
+	必备参数
+
+		必备参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。
+		调用printme()函数，你必须传入一个参数，不然会出现语法错误
+	命名参数	
+		命名参数和函数调用关系紧密，调用方用参数的命名确定传入的参数值。你可以跳过不传的参数或者乱序传参，
+		因为Python解释器能够用参数名匹配参数值。用命名参数调用printme()函数：
+		def printme( str,name ):
+	   		"打印任何传入的字符串"
+	   		print str;
+	   		print name;
+	   		return;
+	 
+			#调用printme函数
+			printme( name = "test",str = "My string");
+	缺省参数
+
+		调用函数时，缺省参数的值如果没有传入，则被认为是默认值。下例会打印默认的age，如果age没有被传入：
+		
+		#可写函数说明
+		def printinfo( name, age = 35 ):
+		   "打印任何传入的字符串"
+		   print "Name: ", name;
+		   print "Age ", age;
+		   return;
+		 
+		#调用printinfo函数
+		printinfo( age=50, name="miki" );
+		printinfo( age = 9,name="miki" );
+		以上实例输出结果：
+		
+		Name:  miki
+		Age  50
+		Name:  miki
+		Age  35
+	不定长参数
+		你可能需要一个函数能处理比当初声明时更多的参数。这些参数叫做不定长参数，声明时不会命名。
+		基本语法如下：
+		def functionname([formal_args,] *var_args_tuple ):
+		   "函数_文档字符串"
+		   function_suite
+		   return [expression]
+		加了星号（*）的变量名会存放所有未命名的变量参数。选择不多传参数也可。如下实例：
+		
+		# 可写函数说明
+		def printinfo( arg1, *vartuple ):
+		   "打印任何传入的参数"
+		   print "输出: "
+		   print arg1
+		   for var in vartuple:
+		      print var
+		   return;
+		 
+		# 调用printinfo 函数
+		printinfo( 10 );
+		printinfo( 70, 60, 50 );
+		以上实例输出结果：
+		
+		输出:
+		10
+		输出:
+		70
+		60
+		50	
+#### 匿名函数
+	用lambda关键词能创建小型匿名函数。这种函数得名于省略了用def声明函数的标准步骤。
+	
+	Lambda函数能接收任何数量的参数但只能返回一个表达式的值，同时只能不能包含命令或多个表达式。
+	匿名函数不能直接调用print，因为lambda需要一个表达式。
+	lambda函数拥有自己的名字空间，且不能访问自有参数列表之外或全局名字空间里的参数。
+	虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。
+	语法
+	
+	lambda函数的语法只包含一个语句，如下：
+	
+	lambda [arg1 [,arg2,.....argn]]:expression
+	如下实例：
+	#可写函数说明
+	sum = lambda arg1, arg2: arg1 + arg2;
+	 
+	#调用sum函数
+	print "Value of total : ", sum( 10, 20 )
+	print "Value of total : ", sum( 20, 20 )
+	以上实例输出结果：
+	
+	Value of total :  30
+	Value of total :  40
+#### return语句
+	return语句[表达式]退出函数，选择性地向调用方返回一个表达式。不带参数值的return语句返回None
+	def sum( arg1, arg2 ):
+   	# 返回2个参数的和."
+   	total = arg1 + arg2
+   	print "Inside the function : ", total
+   	return total;
+ 
+	# 调用sum函数
+	total = sum( 10, 20 );
+	print "Outside the function : ", total 
+####	变量作用域
+	一个程序的所有的变量并不是在哪个位置都可以访问的。访问权限决定于这个变量是在哪里赋值的。
+	变量的作用域决定了在哪一部分程序你可以访问哪个特定的变量名称。两种最基本的变量作用域如下：
+		全局变量
+		局部变量
+
 ### 闭包
-### 装饰器
+
+内部函数对外部函数作用域里变量的引用（非全局变量），则称内部函数为闭包。
+
+    # closure.py
+    
+    def counter(start=0):
+        count=[start]
+        def incr():
+            count[0] += 1
+            return count[0]
+        return incr
+
+    启动python解释器
+    >>>import closeure
+    >>>c1=closeure.counter(5)
+    >>>print c1()
+    6
+    >>>print c1()
+    7
+    >>>c2=closeure.counter(100)
+    >>>print c2()
+    101
+    >>>print c2()
+    102
+
+闭包思考：
+    1.闭包似有化了变量，原来需要类对象完成的工作，闭包也可以完成
+    2.由于闭包引用了外部函数的局部变量，则外部函数的局部变量没有及时释放，消耗内存
+
+### 装饰器函数
+
+装饰器里引入通用功能处理
+
+1.引入日志
+
+2.函数执行时间统计
+
+3.执行函数前预备处理
+
+4.执行函数后清理功能
+
+例1:无参数的函数
+
+    #decorator.py
+    from time import ctime, sleep
+
+    def timefun(func):
+        def wrappedfunc():
+            print "%s called at %s"%(func.__name__, ctime())
+            return func()
+        return wrappedfunc
+
+    @timefun
+    def foo():
+        pass
+
+    foo()
+    sleep(2)
+    foo()
+
+例2:被装饰的函数有参数
+
+    #decorator2.py
+    from time import ctime, sleep
+
+    def timefun(func):
+        def wrappedfunc(a, b):
+            print "%s called at %s"%(func.__name__, ctime())
+            print a, b
+            return func(a, b)
+        return wrappedfunc
+
+    @timefun
+    def foo(a, b):
+        print a+b
+
+    foo(3,5)
+    sleep(2)
+    foo(2,4)
+
+
+例3:装饰器带参数,在原有装饰器的基础上，设置外部变量
+
+    #decorator2.py
+    from time import ctime, sleep
+
+    def timefun_arg(pre="hello"):
+        def timefun(func):
+            def wrappedfunc():
+                print "%s called at %s %s"%(func.__name__, ctime(), pre)
+                return func()
+            return wrappedfunc
+        return timefun
+
+    @timefun_arg("itcast")
+    def foo():
+        pass
+
+    @timefun_arg("xwp")
+    def too():
+        pass
+
+    foo()
+    sleep(2)
+    foo()
+
+    too()
+    sleep(2)
+    too()
+
+例4:装饰器和闭包混用(难)
+
+    #coding=utf-8
+
+    from time import time
+
+    def logged(when):
+        def log(f, *args, **kargs):
+            print "fun:%s  args:%r  kargs:%r" %(f, args, kargs) 
+            #%r字符串的同时，显示原有对象类型
+
+        def pre_logged(f):
+            def wrapper(*args, **kargs):
+                log(f, *args, **kargs)
+                return f(*args, **kargs)
+            return wrapper
+
+        def post_logged(f):
+            def wrapper(*args, **kargs):
+                now=time()
+                try:
+                    return f(*args, **kargs)
+                finally:
+                    log(f, *args, **kargs)
+                    print "time delta: %s"%(time()-now)
+            return wrapper
+        try:
+            return {"pre":pre_logged, "post":post_logged}[when]
+        except KeyError, e:
+            raise ValueError(e), 'must be "pre" or "post"'
+
+    @logged("post")
+    def fun(name):
+        print "Hello, ", name
+
+    fun("itcastcpp!")
+
 
 ## 三. 面向对象
 
-### 封装
-### 继承
-### 类变量命名规则
-### 包的制作与发布
+### 面向对象技术简介
+	类(Class): 用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。
+	对象：通过类定义的数据结构实例。对象包括两个数据成员（类变量和实例变量）和方法。
+	实例化：创建一个类的实例，类的具体对象。
+	
+	
+	方法：类中定义的函数。
+	数据成员：类变量或者实例变量用于处理类及其实例对象的相关的数据。
+	方法重载：如果从父类继承的方法不能满足子类的需求，可以对其进行改写，这个过程叫方法的覆盖（override），重载。
+	实例变量：定义在方法中的变量，只作用于当前实例的类。
+	类变量：类变量在整个实例化的对象中是公用的。类变量定义在类中且在函数体之外。类变量通常不作为实例变量使用。
+	继承：	 即一个派生类（derived class）继承基类（base class）的字段和方法。
+			 继承也允许把一个派生类的对象作为一个基类对象对待。
+	例如，有这样一个设计：一个Dog类型的对象派生自Animal类，这是模拟"是一个（is-a）"关系（例图，Dog是一个Animal）
+	
+### 创建类
+	使用class语句来创建一个新类，class之后为类的名称并以冒号结尾，如下实例:
+	类的属性包括成员变量和方法，其中方法的定义和普通函数的定义非常类似，但方法必须以self作为第一个参数。
+	可以直接在类外通过对象名访问，如果想定义成私有的，则需在前面加2个下划线 ' __'
+	构造方法__init__()方法是一种特殊的方法，被称为类的构造函数或初始化方法，当创建了这个类的实例时就会调用该方法.
+	构造方法支持重载，如果用户自己没有重新定义构造方法，系统就自动执行默认的构造方法。
+	
+	析构方法__del__(self)在释放对象时调用，支持重载，可以在里面进行一些释放资源的操作，不需要显示调用。
+	
+	
+	class ClassName:
+	   '类的帮助信息'   #类文档字符串
+		类变量     	   #类体 class_suite 由类成员，方法，数据属性组成
+		def __init__(self,paramers):
+		def 函数(self,...)
+		......
+	
+	举例：
+	>>>class Employee:
+		classSpec="itis a test class"
+		def __init__(self, name, salary):
+      	self.name = name
+      	self.salary = salary
+      	Employee.empCount += 1
+		def	hello(self,name):
+		print"name= "+name
+
+	在Python类中定义的方法通常有三种：实例方法，类方法以及静态方法。
+	这三者之间的区别是实例方法一般都以self作为第一个参数，必须和具体的对象实例进行绑定才能访问，
+	而类方法以cls作为第一个参数，cls表示类本身，定义时使用@classmethod,那么通过cls引用的必定是类对象的属性和方法；
+	
+	而静态方法不需要默认的任何参数,跟一般的普通函数类似.定义的时候使用@staticmethod
+	静态方法中不需要额外定义参数，因此在静态方法中引用类属性的话，必须通过类对象来引用。
+	
+	而实例方法的第一个参数是实例对象self，那么通过self引用的可能是类属性、也有可能是实例属性（这个需要具体分析）
+	，不过在存在相同名称的类属性和实例属性的情况下，实例属性优先级更高。
+
+### 创建实例对象
+	要创建一个类的实例，你可以使用类的名称，并通过__init__方法接受参数。
+	
+	"创建 Employee 类的第一个对象"
+	emp1 = Employee("Zara", 2000)
+	"创建 Employee 类的第二个对象"
+	emp2 = Employee("Manni", 5000)
+
+### 访问属性
+
+	使用点(.)来访问对象的属性。使用如下类的名称访问类变量:
+	emp1.displayEmployee()
+	
+	你可以添加，删除，修改类的属性，如下所示：
+	emp1.age = 7  # 添加一个 'age' 属性
+	emp1.age = 8  # 修改 'age' 属性
+	del emp1.age  # 删除 'age' 属性
+	
+	getattr(obj, name[, default]) : 访问对象的属性。
+	hasattr(obj,name) : 检查是否存在一个属性。
+	setattr(obj,name,value) : 设置一个属性。如果属性不存在，会创建一个新属性。
+	delattr(obj, name) : 删除属性。
+### Python内置类属性
+	__dict__ : 类的属性（包含一个字典，由类的数据属性组成）
+	__doc__ :类的文档字符串
+	__name__: 类名
+	__module__: 类定义所在的模块（类的全名是'__main__.className'，
+				如果类位于一个导入模块mymod中，那么className.__module__ 等于 mymod）
+	__bases__ : 类的所有父类构成元素（包含了以个由所有父类组成的元组）
+	
+### python对象销毁(垃圾回收)
+	在Python内部记录着所有使用中的对象各有多少引用。
+	一个内部跟踪变量，称为一个引用计数器。
+	
+	当对象被创建时， 就创建了一个引用计数， 当这个对象不再需要时， 也就是说， 这个对象的引用计数变为0 时，
+	它被垃圾回收。但是回收不是"立即"的， 由解释器在适当的时机，将垃圾对象占用的内存空间回收。
+
+### 类的继承
+	面向对象的编程带来的主要好处之一是代码的重用，实现这种重用的方法之一是通过继承机制。
+	继承完全可以理解成类之间的类型和子类型关系。
+	
+	继承语法 :
+	class 派生类名（基类名）：//... 基类名写作括号里，基本类是在类定义的时候，在元组之中指明的。
+	
+	在python中继承中的一些特点：
+	
+	1：在继承中基类的构造（__init__()方法）不会被自动调用，它需要在其派生类的构造中亲自专门调用。
+	2：在调用基类的方法时，需要加上基类的类名前缀，且需要带上self参数变量。
+		   区别于在类中调用普通函数时并不需要带上self参数
+	3：Python总是首先查找对应类型的方法，如果它不能在派生类中找到对应的方法，它才开始到基类中逐个查找。
+		（先在本类中查找调用的方法，找不到才去基类中找）。
+	如果在继承元组中列了一个以上的类，那么它就被称作"多重继承" 。
+	
+	语法：
+	
+	派生类的声明，与他们的父类类似，继承的基类列表跟在类名之后，如下所示：
+	
+	class SubClassName (ParentClass1[, ParentClass2, ...]):
+	   'Optional class documentation string'
+	   class_suite
+	实例：
+	
+	#coding=utf-8
+	#!/usr/bin/python
+	
+	class Parent:        # 定义父类
+	   parentAttr = 100
+	   def __init__(self):
+	      print "调用父类构造函数"
+	
+	   def parentMethod(self):
+	      print '调用父类方法'
+	
+	   def setAttr(self, attr):
+	      Parent.parentAttr = attr
+	
+	   def getAttr(self):
+	      print "父类属性 :", Parent.parentAttr
+	
+	class Child(Parent): # 定义子类
+	   def __init__(self):
+	      print "调用子类构造方法"
+	
+	   def childMethod(self):
+	      print '调用子类方法 child method'
+	
+	c = Child()          # 实例化子类
+	c.childMethod()      # 调用子类的方法
+	c.parentMethod()     # 调用父类方法
+	c.setAttr(200)       # 再次调用父类的方法
+	c.getAttr()          # 再次调用父类的方法
+	以上代码执行结果如下：
+	
+	调用子类构造方法
+	调用子类方法 child method
+	调用父类方法
+	父类属性 : 200
+	你可以继承多个类
+	
+	class A:        # 定义类 A
+	.....
+	
+	class B:         # 定义类 B
+	.....
+	
+	class C(A, B):   # 继承类 A 和 B
+	.....
+	你可以使用issubclass()或者isinstance()方法来检测。
+	
+	issubclass() - 布尔函数判断一个类是另一个类的子类或者子孙类，语法：issubclass(sub,sup)
+	isinstance(obj, Class) 布尔函数如果obj是Class类的实例对象或者是一个Class子类的实例对象则返回true。
+	方法重写
+	如果你的父类方法的功能不能满足你的需求，你可以在子类重写你父类的方法：
+	
+	实例：
+	
+	#coding=utf-8
+	#!/usr/bin/python
+	
+	class Parent:        # 定义父类
+	   def myMethod(self):
+	      print '调用父类方法'
+	
+	class Child(Parent): # 定义子类
+	   def myMethod(self):
+	      print '调用子类方法'
+	
+	c = Child()          # 子类实例
+	c.myMethod()         # 子类调用重写方法
+	执行以上代码输出结果如下：
+	
+	调用子类方法
+	基础重载方法
+	下表列出了一些通用的功能，你可以在自己的类重写：
+	
+	序号	方法, 描述 & 简单的调用
+	1	__init__ ( self [,args...] )
+	构造函数
+	简单的调用方法: obj = className(args)
+	2	__del__( self )
+	析构方法, 删除一个对象
+	简单的调用方法 : dell obj
+	3	__repr__( self )
+	转化为供解释器读取的形式
+	简单的调用方法 : repr(obj)
+	4	__str__( self )
+	用于将值转化为适于人阅读的形式
+	简单的调用方法 : str(obj)
+	5	__cmp__ ( self, x )
+	对象比较
+	简单的调用方法 : cmp(obj, x)
+	运算符重载
+	Python同样支持运算符重载，实例如下：
+	
+	#!/usr/bin/python
+	
+	class Vector:
+	   def __init__(self, a, b):
+	      self.a = a
+	      self.b = b
+	
+	   def __str__(self):
+	      return 'Vector (%d, %d)' % (self.a, self.b)
+	   
+	   def __add__(self,other):
+	      return Vector(self.a + other.a, self.b + other.b)
+	
+	v1 = Vector(2,10)
+	v2 = Vector(5,-2)
+	print v1 + v2
+	以上代码执行结果如下所示:
+	
+	Vector(7,8)
+	类属性与方法
+	类的私有属性
+	
+	__private_attrs：两个下划线开头，声明该属性为私有，不能在类地外部被使用或直接访问。在类内部的方法中使用时 self.__private_attrs。
+	
+	类的方法
+	
+	在类地内部，使用def关键字可以为类定义一个方法，与一般函数定义不同，类方法必须包含参数self,且为第一个参数
+	
+	类的私有方法
+	
+	__private_method：两个下划线开头，声明该方法为私有方法，不能在类地外部调用。在类的内部调用 slef.__private_methods
+	
+	实例
+	
+	#coding=utf-8
+	#!/usr/bin/python
+	
+	class JustCounter:
+		__secretCount = 0  # 私有变量
+		publicCount = 0    # 公开变量
+	
+		def count(self):
+			self.__secretCount += 1
+			self.publicCount += 1
+			print self.__secretCount
+	
+	counter = JustCounter()
+	counter.count()
+	counter.count()
+	print counter.publicCount
+	print counter.__secretCount  # 报错，实例不能访问私有变量
+	Python 通过改变名称来包含类名:
+	
+	1
+	2
+	2
+	Traceback (most recent call last):
+	  File "test.py", line 17, in <module>
+	    print counter.__secretCount  # 报错，实例不能访问私有变量
+	AttributeError: JustCounter instance has no attribute '__secretCount'
+	Python不允许实例化的类访问私有数据，但你可以使用 object._className__attrName 访问属性，将如下代码替换以上代码的最后一行代码：
+	
+	.........................
+	print counter._JustCounter__secretCount
+	执行以上代码，执行结果如下：
+	
+	1
+	2
+	2
+	2
+
+课堂例题：
+
+    #!/usr/bin/env python
+
+    class Student(object):
+        '''2015 new student'''
+        grade=2015
+        __school="qinghua"
+
+        def __init__(self, subj, name, age, sex):
+            '''this is create fun'''
+            self.subj=subj
+            self.name=name
+            self.age=age
+            self.sex=sex
+            print "init student"
+
+        def setName(self, newname):
+            self.name=newname
+
+        def getName(self):
+            return self.name
+
+        def showStudent(self):
+            print "subj=", self.subj
+            print "name=", self.name
+            print "age=", self.age
+            print "sex=", self.sex
+            print "grade=", Student.grade
+            print "school=", Student.__school
+
+        @classmethod
+        def updategrade(cls, newgrade):
+            cls.grade = newgrade
+
+        @classmethod
+        def showClass(cls):
+            print "__name__=" ,cls.__name__ 
+            print "__dict__=" ,cls.__dict__ 
+            print "__class__=" ,cls.__class__ 
+
+
+### 模块
+	模块让你能够有逻辑地组织你的Python代码段。
+	把相关的代码分配到一个 模块里能让你的代码更好用，更易懂。
+	模块也是Python对象，具有随机的名字属性用来绑定或引用。
+	简单地说，模块就是一个保存了Python代码的文件。模块能定义函数，类和变量。模块里也能包含可执行的代码。
+	举例:
+		一个叫做aname的模块里的Python代码一般都能在一个叫aname.py的文件中找到
+### import 语句
+	想使用Python源文件，只需在另一个源文件里执行import语句.可以自动防止重复import
+	形如:	
+		import module1,mudule2...
+	当解释器遇到import语句，如果模块在当前的搜索路径就会被导入。
+	# 导入模块
+	import support
+	# 现在可以调用模块里包含的函数了
+	support.print_func("Zara")
+	
+### From…import 语句
+	Python的from语句让你从模块中导入一个指定的部分到当前命名空间中。语法如下：
+	from modname import name1[, name2[, ... nameN]]
+	例如，要导入模块fib的fibonacci函数，使用如下语句：
+	
+	from fib import fibonacci
+	这个声明不会把整个fib模块导入到当前的命名空间中，它只会将fib里的fibonacci单个引入到执行这个声明的模块的全局符号表
+### From…import* 语句
+	把一个模块的所有内容全都导入到当前的命名空间也是可行的，只需使用如下声明：
+	
+	from modname import *
+	这提供了一个简单的方法来导入一个模块中的所有项目。然而这种声明不该被过多地使用。
+### 定位模块
+	当你导入一个模块，Python解析器对模块位置的搜索顺序是：
+	
+	当前目录
+	如果不在当前目录，Python则搜索在shell变量PYTHONPATH下的每个目录。
+	如果都找不到，Python会察看默认路径。UNIX下，默认路径一般为/usr/local/lib/python/
+	模块搜索路径存储在system模块的sys.path变量中。变量里包含当前目录，PYTHONPATH和由安装过程决定的默认目录。
+
+### PYTHONPATH变量
+	作为环境变量，PYTHONPATH由装在一个列表里的许多目录组成。PYTHONPATH的语法和shell变量PATH的一样。
+	在Windows系统，典型的PYTHONPATH如下：
+		set PYTHONPATH=c:\python20\lib;
+	在UNIX系统，典型的PYTHONPATH如下：
+		set PYTHONPATH=/usr/local/lib/python
+
+### 命名空间和作用域
+	变量是拥有匹配对象的名字（标识符）。
+	命名空间是一个包含了变量名称们（键）和它们各自相应的对象们（值）的字典。
+	一个Python表达式可以访问局部命名空间和全局命名空间里的变量。同名隐藏的原则同C/C++
+	
+	每个函数都有自己的命名空间。类的方法的作用域规则和通常函数的一样。
+	默认任何在函数内赋值的变量都是局部的。
+	因此，如果要给全局变量在一个函数里赋值，必须使用global语句。
+	
+	global VarName的表达式会告诉Python， VarName是一个全局变量，这样Python就不会在局部命名空间里寻找这个变量了。
+	
+	例如，我们在全局命名空间里定义一个变量money。我们再在函数内给变量money赋值，然后Python会假定money是一个局部变量。
+	然而，我们并没有在访问前声明一个局部变量money，结果就是会出现一个UnboundLocalError的错误。
+	取消global语句的注释就能解决这个问题。
+
+	Money = 2000
+	def AddMoney():
+	   # 想改正代码就取消以下注释:
+	   # global Money
+	   Money = Money + 1
+	print Money
+	AddMoney()
+	print Money
+
+### dir()函数
+	dir()函数一个排好序的字符串列表，内容是一个模块里定义过的名字。
+	返回的列表容纳了在一个模块里定义的所有模块，变量和函数。
+	import math
+	content = dir(math)
+	print content;
+	
+	['__doc__', '__file__', '__name__', 'acos', 'asin', 'atan', 
+	'atan2', 'ceil', 'cos', 'cosh', 'degrees', 'e', 'exp', 
+	'fabs', 'floor', 'fmod', 'frexp', 'hypot', 'ldexp', 'log',
+	'log10', 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 
+	'sqrt', 'tan', 'tanh']
+
+### globals()和locals()函数
+	根据调用地方的不同，globals()和locals()函数可被用来返回全局和局部命名空间里的名字。
+	如果在函数内部调用locals()，返回的是所有能在该函数里访问的命名。
+	如果在函数内部调用globals()，返回的是所有在该函数里能访问的全局名字。
+	两个函数的返回类型都是字典。所以名字们能用keys()函数摘取。
+
+### Python中的包
+
+包是一个分层次的文件目录结构，它定义了一个由模块及子包，和子包下的子包等组成的Python的应用环境。
+	
+考虑一个在Phone目录下的pots.py文件。这个文件有如下源代码：
+	#pots.py
+	#coding=utf-8
+	#!/usr/bin/python
+	 
+	def Pots():
+	   print "I'm Pots Phone"
+	   
+同样地，我们有另外两个保存了不同函数的文件：
+	
+	Phone/Isdn.py 含有函数Isdn()
+	Phone/G3.py 含有函数G3()
+
+现在，在Phone目录下创建file __init__.py：
+	
+	Phone/__init__.py
+	此文件可为空
+    from Phone.post import post
+
+    或者当你导入Phone时，为了能够使用所有函数，你需要在__init__.py里使用显式的导入语句，如下：
+	
+    from Pots import Pots
+	from Isdn import Isdn
+	from G3 import G3
+
+当你把这些代码添加到__init__.py之后，导入Phone包的时候这些类就全都是可用的了。
+
+	# Now import your Phone Package.
+	import Phone
+
+	Phone.Pots()
+	Phone.Isdn()
+	Phone.G3()
+	以上实例输出结果：
+	
+	I'm Pots Phone
+	I'm 3G Phone
+	I'm ISDN Phone
+
+如上，为了举例，我们只在每个文件里放置了一个函数，但其实你可以放置许多函数。
+
+
+你也可以在这些文件里定义Python的类，然后为这些类建一个包。
+
+### 模块发布
+
+1.mymodule目录结构体如下：
+
+    .
+    ├── setup.py
+    ├── suba
+    │   ├── aa.py
+    │   ├── bb.py
+    │   └── __init__.py
+    └── subb
+        ├── cc.py
+        ├── dd.py
+        └── __init__.py
+
+2.编写setup.py,py_modules需指明所需包含的py文件
+
+    from distutils.core import setup
+
+    setup(name="xwp", version="1.0", description="xwp's module", author="xingwenpeng", py_modules=['suba.aa', 'suba.bb', 'subb.cc', 'subb.dd'])
+
+3.构建模块
+
+    python setup.py build
+
+    构建后目录结构
+    .
+    ├── build
+    │   └── lib.linux-i686-2.7
+    │       ├── suba
+    │       │   ├── aa.py
+    │       │   ├── bb.py
+    │       │   └── __init__.py
+    │       └── subb
+    │           ├── cc.py
+    │           ├── dd.py
+    │           └── __init__.py
+    ├── setup.py
+    ├── suba
+    │   ├── aa.py
+    │   ├── bb.py
+    │   └── __init__.py
+    └── subb
+        ├── cc.py
+        ├── dd.py
+        └── __init__.py
+
+
+4.生成发布压缩包
+
+    python setup.py sdist
+
+    打包后,生成最终发布压缩包xwp-1.0.tar.gz , 目录结构
+    .
+    ├── build
+    │   └── lib.linux-i686-2.7
+    │       ├── suba
+    │       │   ├── aa.py
+    │       │   ├── bb.py
+    │       │   └── __init__.py
+    │       └── subb
+    │           ├── cc.py
+    │           ├── dd.py
+    │           └── __init__.py
+    ├── dist
+    │   └── xwp-1.0.tar.gz
+    ├── MANIFEST
+    ├── setup.py
+    ├── suba
+    │   ├── aa.py
+    │   ├── bb.py
+    │   └── __init__.py
+    └── subb
+        ├── cc.py
+        ├── dd.py
+        └── __init__.py
+
+
+
 
 ## 四. 文件操作
 
-### 文件创建与读写
+### 打印到屏幕
+	最简单的输出方法是用print语句，你可以给它传递零个或多个用逗号隔开的表达式。或者使用占位符
+	
+### 读取键盘输入
+	Python提供了两个内置函数从标准输入读入一行文本，默认的标准输入是键盘。如下：
+	raw_input() input()函数
+	
+	raw_input函数
+	raw_input([prompt]) 函数从标准输入读取一个行，并返回一个字符串（去掉结尾的换行符）：
+	
+	str = raw_input("Enter your input: ");
+	print "Received input is : ", str
+	这将提示你输入任意字符串，然后在屏幕上显示相同的字符串。当我输入"Hello Python！"，它的输出如下：
+	
+	Enter your input: Hello Python
+	Received input is :  Hello Python
+	
+	input函数
+	
+	input([prompt]) 函数和raw_input([prompt]) 函数基本可以互换，
+	但是input会假设你的输入是一个有效的Python表达式，并返回运算结果。
+
+	str = input("Enter your input: ");
+	print "Received input is : ", str
+	这会产生如下的对应着输入的结果：
+	
+	Enter your input: [x*5 for x in range(2,10,2)]
+	Recieved input is :  [10, 20, 30, 40]
+### 打开和关闭文件
+	你可以用file对象做大部分的文件操作。
+	open函数
+		你必须先用Python内置的open()函数打开一个文件，创建一个file对象，相关的辅助方法才可以调用它进行读写。
+	file object = open(file_name [, access_mode][, buffering])
+	各个参数的细节如下：
+	file_name：file_name变量是一个包含了你要访问的文件名称的字符串值。
+	access_mode：access_mode决定了打开文件的模式：只读，写入，追加等。同C
+	buffering:   缓冲区的大小.(为0，就不会有寄存;为1，访问文件时会寄存行;大于1，寄存区的缓冲大小。
+				 如果取负值，寄存区的缓冲大小则为系统默认
+### File对象的属性
+	一个文件被打开后，你有一个file对象，你可以得到有关该文件的各种信息。
+	以下是和file对象相关的所有属性的列表：
+	属性	描述
+	file.closed		返回true如果文件已被关闭，否则返回false。
+	file.mode		返回被打开文件的访问模式。
+	file.name		返回文件的名称。
+	file.softspace	如果用print输出后，必须跟一个空格符，则返回false。否则返回true。
+### close()方法
+	File对象的close（）方法刷新缓冲区里任何还没写入的信息，并关闭该文件，这之后便不能再进行写入。
+	当一个文件对象的引用被重新指定给另一个文件时，Python会关闭之前的文件。用close（）方法关闭文件是一个很好的习惯。
+	
+	fileObject.close();
+### write()方法
+	
+	Write()方法可将任何字符串写入一个打开的文件。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。
+	Write()方法不在字符串的结尾不添加换行符('\n')：
+	语法：
+	fileObject.write(string);
+### read()方法
+	read（）方法从一个打开的文件中读取一个字符串。需要重点注意的是，Python字符串可以是二进制数据，而不是仅仅是文字。
+	语法：
+	fileObject.read([count]);
+	//返回的为读取数据的引用
+	
+	print file.read(10);
+### seek()方法	
+	文件位置：
+	Tell()方法告诉你文件内的当前位置；换句话说，下一次的读写会发生在文件开头这么多字节之后：
+	seek（offset [,from]）方法改变当前文件的位置。Offset变量表示要移动的字节数。
+	From变量指定开始移动字节的参考位置。如果from被设为0，这意味着将文件的开头作为移动字节的参考位置。
+	如果设为1，则使用当前的位置作为参考位置。如果它被设为2，那么该文件的末尾将作为参考位置。
+	
+	# 查找当前位置
+	position = fo.tell();
+	print "Current file position : ", position
+	 
+	# 把指针再次重新定位到文件开头
+	position = fo.seek(0, 0);
+	str = fo.read(10);
+	print "Again read String is : ", str
+	# 关闭打开的文件
+	fo.close()
+### 重命名和删除文件
+	Python的os模块提供了帮你执行文件处理操作的方法，比如重命名和删除文件。
+	要使用这个模块，你必须先导入它，然后可以调用相关的各种功能。
+	
+	rename()方法：
+	rename()方法需要两个参数，当前的文件名和新文件名。
+	语法：
+		os.rename(current_file_name, new_file_name)
+	remove()方法
+	你可以用remove()方法删除文件，需要提供要删除的文件名作为参数。
+	语法：	
+		os.remove(file_name)
+### Python里的目录：
+	所有文件都包含在各个不同的目录下，不过Python也能轻松处理。os模块有许多方法能帮你创建，删除和更改目录。
+	mkdir()方法
+	可以使用os模块的mkdir()方法在当前目录下创建新的目录们。你需要提供一个包含了要创建的目录名称的参数。
+	语法：
+		os.mkdir("newdir")
+### chdir()方法
+	可以用chdir()方法来改变当前的目录。chdir()方法需要的一个参数是你想设成当前目录的目录名称。
+	语法：
+		os.chdir("newdir")
+### getcwd()方法：
+
+	getcwd()方法显示当前的工作目录。
+	语法：
+		os.getcwd()
+### rmdir()方法
+	rmdir()方法删除目录，目录名称以参数传递。
+	
+	在删除这个目录之前，它的所有内容应该先被清除。
+	
+	语法：
+	os.rmdir('dirname')
+	例子：
+	以下是删除" /tmp/test"目录的例子。目录的完全合规的名称必须被给出，否则会在当前目录下搜索该目录。
+	
+	#coding=utf-8
+	#!/usr/bin/python
+	import os
+	 
+	# 删除”/tmp/test”目录
+	os.rmdir( "/tmp/test"  )
+### 文件、目录相关的方法
+	三个重要的方法来源能对Windows和Unix操作系统上的文件及目录进行一个广泛且实用的处理及操控，如下：
+	
+	File 对象方法: file对象提供了操作文件的一系列方法。
+	OS 对象方法: 提供了处理文件及目录的一系列方法。
+	
 ### Linux和Windows平台下的差异性
 
 ## 五. 应用案例剖析
 
-### 15个经典Python案例，展现python优美神奇的一面
+### 经典Python案例，展现python优美神奇的一面
 
-## 六. 模块化借力C/C++
+### 1.图片上加数字
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+
+myPath = "./"
+fontPath = "./"
+inputFile = "xwp.jpg"
+outputFile = "output.jpg"
+
+import Image, ImageFont, ImageDraw
+#打开图片
+im = Image.open(myPath + inputFile)
+draw = ImageDraw.Draw(im)
+#根据图片大小确定字体大小
+fontsize = min(im.size)/4
+#加文字
+font = ImageFont.truetype(fontPath + 'KhmerOS.ttf', fontsize)
+draw.text((im.size[0]-fontsize, 0), '5', font = font, fill = (256,0,0))
+im.save(myPath + outputFile,"jpeg")
+
+```
+### 2.生成随机数
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+import string, random
+
+#激活码中的字符和数字
+field = string.letters + string.digits
+
+#获得四个字母和数字的随机组合
+def getRandom():
+    return "".join(random.sample(field,4))
+
+#生成的每个激活码中有几组
+def concatenate(group):
+    return "-".join([getRandom() for i in range(group)])
+
+#生成n组激活码
+def generate(n):
+    return [concatenate(4) for i in range(n)]
+
+if __name__ == '__main__':
+    print generate(200)
+
+
+```
+
+### 3.统计单词  
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+import re
+from collections import Counter
+FILESOURCE = './media/abc.txt'
+
+def getMostCommonWord(articlefilesource):
+    '''输入一个英文的纯文本文件，统计其中的单词出现的个数'''
+    pattern = r'''[A-Za-z]+|\$?\d+%?$'''
+    with open(articlefilesource) as f:
+        r = re.findall(pattern,f.read())
+        return Counter(r).most_common()
+
+if __name__ == '__main__':
+    print getMostCommonWord(FILESOURCE)
+
+
+```
+
+### 4.最重要的词  
+
+目录下多个txt文件，找出词出现频率最高的
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+import re, os
+from collections import Counter
+
+# 目标文件所在目录
+FILE_PATH = './media/countword'
+
+def getCounter(articlefilesource):
+    '''输入一个英文的纯文本文件，统计其中的单词出现的个数'''
+    pattern = r'''[A-Za-z]+|\$?\d+%?$'''
+    with open(articlefilesource) as f:
+        r = re.findall(pattern, f.read())
+        return Counter(r)
+
+#过滤词
+stop_word = ['the', 'in', 'of', 'and', 'to', 'has', 'that', 's', 'is', 'are', 'a', 'with', 'as', 'an']
+
+def run(FILE_PATH):
+    # 切换到目标文件所在目录
+    os.chdir(FILE_PATH)
+    # 遍历该目录下的txt文件
+    total_counter = Counter()
+    for i in os.listdir(os.getcwd()):
+        if os.path.splitext(i)[1] == '.txt':
+            total_counter += getCounter(i)
+    # 排除stopword的影响
+    for i in stop_word:
+        total_counter[i] = 0
+    print total_counter.most_common()[0][0]
+
+if __name__ == '__main__':
+    run(FILE_PATH)
+
+
+```
+### 5.批量图片处理
+
+你有一个目录，装了很多照片，把它们的尺寸变成都不大于 iPhone5 分辨率的大小
+
+思路：遍历给出目录下的图片，把大于iPhone5分辨率的图片都进行缩放。使用Python的PIL库对图片进行处理，IPhone5屏幕分辨率为640 × 1136，将大于该分辨率的图片按照一定比例缩放至适合大小并保存。
+
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+import Image, os
+
+# 源目录
+#myPath = './media/srcimg/'
+myPath = '/home/itcast/workspace/chuanzhi/openlessons/demo_python/media/srcimg/'
+# 输出目录
+#outPath = './media/destimg/'
+outPath = '/home/itcast/workspace/chuanzhi/openlessons/demo_python/media/destimg/'
+
+def processImage(filesource, destsource, name, imgtype):
+    '''
+    filesource是存放待转换图片的目录
+    destsource是存放输出转换后图片的目录
+    name是文件名
+    imgtype是文件类型
+    '''
+    imgtype = 'jpeg' if imgtype == '.jpg' else 'png'
+    #打开图片
+    im = Image.open(filesource + name)
+    # 缩放比例
+    rate = max(im.size[0]/640.0 if im.size[0] > 640 else 0, im.size[1]/1136.0 if im.size[1] > 1136 else 0)
+    if rate:
+        im.thumbnail((im.size[0]/rate, im.size[1]/rate))
+    im.save(destsource + name, imgtype)
+
+def run():
+    # 切换到源目录，遍历源目录下所有图片
+    os.chdir(myPath)
+    for i in os.listdir(os.getcwd()):
+        # 检查后缀
+        postfix = os.path.splitext(i)[1]
+        if postfix == '.jpg' or postfix == '.png':
+            processImage(myPath, outPath, i, postfix)
+
+if __name__ == '__main__':
+    run()
+```
+
+### 6.统计代码行数（注释，空行，总行数）
+
+思路：获取目录，然后遍历目录下的代码文件，逐个统计每个文件的代码，然后最后汇总输出。
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+import os, re
+
+# 代码所在目录
+FILE_PATH = './'
+
+def analyze_code(codefilesource):
+    '''
+    打开一个py文件，统计其中的代码行数，包括空行和注释
+    返回含该文件总行数，注释行数，空行数的列表
+    '''
+    total_line = 0
+    comment_line = 0
+    blank_line = 0
+    with open(codefilesource) as f:
+        lines = f.readlines()
+        total_line = len(lines)
+        line_index = 0
+        # 遍历每一行
+        while line_index < total_line:
+            line = lines[line_index]
+            # 检查是否为注释
+            if line.startswith("#"):
+                comment_line += 1
+            elif re.match("\s*'''", line) is not None:
+                comment_line += 1
+                while re.match(".*'''$", line) is None:
+                    line = lines[line_index]
+                    comment_line += 1
+                    line_index += 1
+            # 检查是否为空行
+            elif line == "\n":
+                blank_line += 1
+            line_index += 1
+    print "在%s中：" % codefilesource
+    print "代码行数：", total_line
+    print "注释行数：", comment_line, "占%0.2f%%" % (comment_line*100.0/total_line)
+    print "空行数：  ", blank_line, "占%0.2f%%" % (blank_line*100.0/total_line)
+    return [total_line, comment_line, blank_line]
+
+
+def run(FILE_PATH):
+    # 切换到code所在目录
+    os.chdir(FILE_PATH)
+    # 遍历该目录下的py文件
+    total_lines = 0
+    total_comment_lines = 0
+    total_blank_lines = 0
+    for i in os.listdir(os.getcwd()):
+        if os.path.splitext(i)[1] == '.py':
+            line = analyze_code(i)
+            total_lines, total_comment_lines, total_blank_lines = total_lines + line[0], total_comment_lines + line[1], total_blank_lines + line[2]
+    print "总代码行数：", total_lines
+    print "总注释行数：", total_comment_lines, "占%0.2f%%" % (total_comment_lines*100.0/total_lines)
+    print "总空行数：  ", total_blank_lines, "占%0.2f%%" % (total_blank_lines*100.0/total_lines)
+
+if __name__ == '__main__':
+    run(FILE_PATH)
+
+```
+
+### 7.提取HTML正文内容  
+
+思路：我把这里的正文理解为网页中我主要内容，那么怎么去抓取这个主要内容呢？我一开始的想法是用beautifulsoup来解析网页，但是又想到如果要抽取正文的话这样做还涉及到比较复杂的算法，而且对于不同的网页来说效果可能做不到很好。后来我发现了Python-goose（Github）这个神器，它是基于NLTK和Beautiful Soup的，分别是文本处理和HTML解析的领导者，目标是给定任意资讯文章或者任意文章类的网页，不仅提取出文章的主体，同时提取出所有元信息以及图片等信息，支持中文网页（用到了结巴分词）。这个正好符合需求，所以直接拿来用了。
+
+安装python goose：
+
+	git clone https://github.com/grangier/python-goose.git
+	cd python-goose
+	pip install -r requirements.txt
+	python setup.py install
+ 
+```python
+#!/usr/bin/env python
+#coding: utf-8
+from goose import Goose
+from goose.text import StopWordsChinese
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+# 要分析的网页url
+#url = 'http://c.itcast.cn/index.html'
+url = 'https://linux.cn/article-6717-1.html'
+
+def extract(url):
+    '''
+    提取网页正文
+    '''
+    g = Goose({'stopwords_class': StopWordsChinese})
+    article = g.extract(url=url)
+    return article.cleaned_text
+
+if __name__ == '__main__':
+    print extract(url)
+```
+
+
+### 8.生成验证码图片
+
+思路：先随机生成验证码，然后用Python的PIL库画出这个激活码的图片，具体点就是创建画布，加验证码的字上去，增加噪点进行干扰，再进行模糊处理，接着保存到名字为验证码的图片中。
+
+```python
+
+#!/usr/bin/env python
+#coding: utf-8
+import Image, ImageDraw, ImageFont, ImageFilter
+import string, random
+
+fontPath = "./media/"
+
+# 获得随机四个字母
+def getRandomChar():
+    return [random.choice(string.letters) for _ in range(4)]
+
+# 获得颜色
+def getRandomColor():
+    return (random.randint(30, 100), random.randint(30, 100), random.randint(30, 100))
+
+# 获得验证码图片
+def getCodePiture():
+    width = 240
+    height = 60
+    # 创建画布
+    image = Image.new('RGB', (width, height), (180,180,180))
+    font = ImageFont.truetype(fontPath + 'KhmerOS.ttf', 40)
+    draw = ImageDraw.Draw(image)
+    # 创建验证码对象
+    code = getRandomChar()
+    # 把验证码放到画布上
+    for t in range(4):
+        draw.text((60 * t + 10, 0), code[t], font=font, fill=getRandomColor())
+    # 填充噪点
+    for _ in range(random.randint(1500,3000)):
+        draw.point((random.randint(0,width), random.randint(0,height)), fill=getRandomColor())
+    # 模糊处理
+    image = image.filter(ImageFilter.BLUR)
+    # 保存名字为验证码的图片
+    image.save("".join(code) + '.jpg', 'jpeg');
+
+if __name__ == '__main__':
+    getCodePiture()
+
+```
+
+## 六. Linux系统网络编程实战
+
+### requests网络库使用
+
+虽然Python的标准库中urllib2模块已经包含了平常我们使用的大多数功能，但是它的API使用起来让人实在感觉不好。它已经不适合现在的时代，不适合现代的互联网了。而Requests的诞生让我们有了更好的选择。
+
+正像它的名称所说的，HTTP for Humans,给人类使用的HTTP库！
+在Python的世界中，一切都应该简单。Requests使用的是urllib3，拥有了它的所有特性，Requests 支持 HTTP 连接保持和连接池，
+支持使用 cookie 保持会话，支持文件上传，支持自动确定响应内容的编码，
+支持国际化的 URL 和 POST 数据自动编码。现代、国际化、人性化。
+
+
+1.发送无参数的get请求
+
+```python
+import requests
+r = requests.get('http://httpbin.org/get')
+print r.text
+
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "*/*", 
+    "Accept-Encoding": "gzip, deflate, compress", 
+    "Host": "httpbin.org", 
+    "User-Agent": "python-requests/2.2.1 CPython/2.7.6 Linux/3.16.0-30-generic"
+  }, 
+  "origin": "61.148.201.2", 
+  "url": "http://httpbin.org/get"
+}
+```
+
+
+2.发送带参数的get请求,将key与value放入一个字典中，通过params参数来传递
+
+```python
+
+import requests
+myparams={'q':'Linux'}
+r=requests.get('https://www.haosou.com/s', params=myparams)
+r.url
+print r.content
+
+```
+
+3.发送post请求，通过data参数来传递
+
+```python
+import requests
+mydata={'wd':'Linux', 'name':'xwp'}
+r = requests.post("http://httpbin.org/post", data=mydata)
+print r.text
+
+	{
+	  "args": {}, 
+	  "data": "", 
+	  "files": {}, 
+	  "form": {
+	    "name": "xwp", 
+	    "wd": "Linux"
+	  }, 
+	  "headers": {
+	    "Accept": "*/*", 
+	    "Accept-Encoding": "gzip, deflate, compress", 
+	    "Content-Length": "17", 
+	    "Content-Type": "application/x-www-form-urlencoded", 
+	    "Host": "httpbin.org", 
+	    "User-Agent": "python-requests/2.2.1 CPython/2.7.6 Linux/3.16.0-30-generic"
+	  }, 
+	  "json": null, 
+	  "origin": "61.148.201.2", 
+	  "url": "http://httpbin.org/post"
+	}
+
+```
+
+4.发送post请求，通过json参数来传递
+
+```python
+import json
+import requests
+mydata={'wd':'Linux', 'name':'xwp'}
+r = requests.post('http://httpbin.org/post', data=json.dumps(mydata))
+print r.text
+
+	{
+	  "args": {}, 
+	  "data": "{\"wd\": \"Linux\", \"name\": \"xwp\"}", 
+	  "files": {}, 
+	  "form": {}, 
+	  "headers": {
+	    "Accept": "*/*", 
+	    "Accept-Encoding": "gzip, deflate, compress", 
+	    "Content-Length": "30", 
+	    "Host": "httpbin.org", 
+	    "User-Agent": "python-requests/2.2.1 CPython/2.7.6 Linux/3.16.0-30-generic"
+	  }, 
+	  "json": {
+	    "name": "xwp", 
+	    "wd": "Linux"
+	  }, 
+	  "origin": "61.148.201.2", 
+	  "url": "http://httpbin.org/post"
+	}
+
+```
+
+5.上传文件
+
+上传一张照片,这时要使用files参数
+
+```python
+
+import requests
+files = {'file': open('xwp.jpg', 'rb')}
+r = requests.post(url, files=files)
+print r.text
+
+```
+
+6.实战案例
+
+```python
+
+#coding:utf-8
+import requests
+import re
+
+url = r'http://www.renren.com/ajaxLogin/login'
+
+user = {'email':'username','password':'passwd'}
+s = requests.Session()
+r = s.post(url,data = user)
+
+html = r.text
+visit = []
+first = re.compile(r'</span><span class="time-tip first-tip"><span class="tip-content">(.*?)</span>')
+second = re.compile(r'</span><span class="time-tip"><span class="tip-content">(.*?)</span>')
+third = re.compile(r'</span><span class="time-tip last-second-tip"><span class="tip-content">(.*?)</span>')
+last = re.compile(r'</span><span class="time-tip last-tip"><span class="tip-content">(.*?)</span>')
+visit.extend(first.findall(html))
+visit.extend(second.findall(html))
+visit.extend(third.findall(html))
+visit.extend(last.findall(html))
+for i in visit:
+        print i
+
+print '以下是更多的最近来访'
+vm = s.get('http://www.renren.com/myfoot/whoSeenMe')
+fm = re.compile(r'"name":"(.*?)"')
+visitmore = fm.findall(vm.text)
+for i in visitmore:
+        print i
+
+```
+
+### socket原生网络库使用
+
+server1:原始socket AIP
+
+
+```python
+#coding:utf-8
+
+from socket import *
+
+myhost = ''
+myport = 8080
+sockobj = socket(AF_INET, SOCK_STREAM)
+sockobj.bind((myhost, myport))
+sockobj.listen(128)
+while True:
+    connection, address = sockobj.accept()
+    print "connect by", address
+    while True:
+        data = connection.recv(1024)
+        if not data:
+            break
+        connection.send('echo' + data)
+    connection.close()
+```
+
+server2
+
+```python
+#coding:utf-8
+
+from SocketServer import TCPServer, BaseRequestHandler  
+import traceback  
+
+class MyBaseRequestHandlerr(BaseRequestHandler):  
+    """ 
+    #从BaseRequestHandler继承，并重写handle方法 
+    """  
+
+    def handle(self):  
+        #循环监听（读取）来自客户端的数据  
+        while True:  
+            #当客户端主动断开连接时，self.recv(1024)会抛出异常  
+            try:  
+                #一次读取1024字节,并去除两端的空白字符(包括空格,TAB,\r,\n)  
+                data = self.request.recv(1024).strip()  
+
+                #self.client_address是客户端的连接(host, port)的元组  
+                print "receive from (%r):%r" % (self.client_address, data)  
+
+                #转换成大写后写回(发生到)客户端  
+                self.request.sendall(data.upper())  
+            except:  
+                traceback.print_exc()  
+                break  
+
+if __name__ == "__main__":  
+    #telnet 127.0.0.1 9999  
+    host = ""       #主机名，可以是ip,像localhost的主机名,或""  
+    port = 8080     #端口  
+    addr = (host, port)  
+
+    #购置TCPServer对象，  
+    server = TCPServer(addr, MyBaseRequestHandlerr)  
+
+    #启动服务监听  
+    server.serve_forever()  
+```
+
+server3:多线程TCPserver
+
+```python
+#coding:utf-8
+
+from SocketServer import ThreadingTCPServer, StreamRequestHandler
+import traceback
+
+class MyStreamRequestHandlerr(StreamRequestHandler):
+    def handle(self):
+        while True:
+            try:
+                data = self.rfile.readline().strip()
+                print "receive from (%r):%r" % (self.client_address, data)
+                self.wfile.write(data.upper())
+            except:
+                traceback.print_exc()
+                break
+
+if __name__ == "__main__":
+    host = ""       #主机名，可以是ip,像localhost的主机名,或""
+    port = 8080     #端口
+    addr = (host, port)
+
+    #ThreadingTCPServer从ThreadingMixIn和TCPServer继承
+    #class ThreadingTCPServer(ThreadingMixIn, TCPServer): pass
+    server = ThreadingTCPServer(addr, MyStreamRequestHandlerr)
+    server.serve_forever()
+```
+
+## 七. 模块化借力C/C++
 
 ### 借力C/C++，提高程序性能，实现代码复用
 ### Python操作Redis
 
-## 七. Linux系统网络编程实战
-
-### requests网络库使用
-### socket原生网络库使用
 
 ## 八. web框架Django开发
 
