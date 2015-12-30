@@ -2688,7 +2688,262 @@ if __name__ == "__main__":
 ## 七. 模块化借力C/C++
 
 ### 借力C/C++，提高程序性能，实现代码复用
-### Python操作Redis
+
+为什么需要扩展python
+
+1. 性能瓶颈的效率提升
+
+2. 保持源代码的私密性，如加解密算法
+
+创建python扩展流程
+
+1. 创建C/C++功能代码
+2. python类型适配，包装C/C++代码
+3. 编译与测试
+
+#### C/C++版本的功能函数
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int fac(int n)
+{
+    if (n < 2)
+        return 1;
+
+    return n * fac(n - 1);
+}
+
+char *reverse(char *s)
+{
+    char t, *p = s, *q = (s + (strlen(s)-1));
+
+    while (s && (p < q)) {
+        t = *p;
+        *p++ = *q;
+        *q-- = t;
+    }
+
+    return s;
+}
+
+//int test(void)
+int main(void)
+{
+    char s[1024];
+
+    printf("4! == %d\n", fac(4));
+    printf("8! == %d\n", fac(8));
+
+    strcpy(s, "itcastcpp");
+    printf("reversing 'itcastcpp', we get '%s'\n", reverse(s));
+
+    return 0;
+}
+
+```
+
+头文件
+
+```c
+#ifndef ITCASTCPP_H_
+#define ITCASTCPP_H_
+
+int fac(int n);
+char *reverse(char *s);
+int test(void);
+
+#endif
+
+```
+编译测试，保证ｃ代码的正确性，避免在python中再去调试ｃ模块。
+
+#### 包裹函数
+
+实现包裹，主要分４步：
+
+1. 包含Python.h头文件
+2. 为每一个函数增加一个PyObject *Module_func()的包裹函数
+3. 为模块增加一个PyMethod DefModuleMethods[]的数组
+4. 增加模块的初始化函数void initModule()
+
+##### 包含Python.h头文件
+确保你的系统上安装过python，我的系统是ubuntu14.04，头文件路径为:
+
+	 /usr/include/python2.7 
+	c中包含此头文件 
+	 #include "Python.h"
+
+##### 为每一个函数增加一个PyObject *Module_func()的包裹函数
+
+包裹函数名字:
+
+	模块名_函数名
+
+python调用时:
+
+	模块名.函数名
+
+python到ｃ，把python传过来的参数转为Ｃ的类型:
+	
+	int PyArg_ParseTuple()	
+
+c到python,　把Ｃ的数据转为python的一个或一组对象返回
+
+	PyObject *Py_BuildValue()
+
+Python和C/C++之间数据转换：
+
+	格式代码	python类型	ｃ类型
+	s 			str 		char *
+	z 			str/None 	char */NULL
+	i 			int 		int 
+	l 			long 		long 
+	c 			str  		char 
+	d 			float  		double
+	D 			complex 	Py_Complex*
+	O 			(any) 		PyObject *
+	S 			str 		PyStringObject 
+
+
+##### 为模块增加一个PyMethod DefModuleMethods[]的数组
+
+```c
+static PyMethodDef ItcastcppMethods[] = {
+    {"fac", Itcastcpp_fac, METH_VARARGS},
+    {"doppel", Itcastcpp_doppel, METH_VARARGS},
+    {"test", Itcastcpp_test, METH_VARARGS},
+    {NULL, NULL},
+};
+```
+
+##### 增加模块的初始化函数void initModule()
+
+模块名和模块所支持的方法
+
+```c
+void initItcastcpp(void)
+{
+    Py_InitModule("Itcastcpp", ItcastcppMethods);
+}
+```
+
+代码实现如下：
+
+```c
+#include "Python.h"
+#include <stdlib.h>
+#include <string.h>
+#include "Itcastcpp.h"
+
+static PyObject *Itcastcpp_fac(PyObject *self, PyObject *args)
+{
+    int num;
+
+    if (!PyArg_ParseTuple(args, "i", &num))
+        return NULL;
+
+    return (PyObject *)Py_BuildValue("i", fac(num));
+}
+
+static PyObject *Itcastcpp_doppel(PyObject *self, PyObject *args)
+{
+    char *src;
+    char *mstr;
+    PyObject *retval;
+
+    if (!PyArg_ParseTuple(args, "s", &src))
+        return NULL;
+
+    mstr = malloc(strlen(src) + 1);
+    strcpy(mstr, src);
+    reverse(mstr);
+    retval = (PyObject *)Py_BuildValue("ss", src, mstr);
+    free(mstr);
+
+    return retval;
+}
+
+static PyObject *Itcastcpp_test(PyObject *self, PyObject *args)
+{
+    test();
+
+    return (PyObject *)Py_BuildValue("");
+}
+
+static PyMethodDef ItcastcppMethods[] = {
+    {"fac", Itcastcpp_fac, METH_VARARGS},
+    {"doppel", Itcastcpp_doppel, METH_VARARGS},
+    {"test", Itcastcpp_test, METH_VARARGS},
+    {NULL, NULL},
+};
+
+void initItcastcpp(void)
+{
+    Py_InitModule("Itcastcpp", ItcastcppMethods);
+}
+```
+
+
+#### 编译安装到python环境
+
+1. 创建setup.py
+2. 运行setup.py编译和链接Ｃ的扩展代码
+3. 从Python中导入模块
+4. 测试
+
+
+##### 创建setup.py
+
+为了能编译扩展，需要为每一个扩展创建一个Extension实例
+
+```python
+#! /usr/bin/env python
+
+from distutils.core import setup, Extension
+
+MOD = "Itcastcpp"
+
+setup(name=MOD, ext_modules=[Extension(MOD, sources=['Itcastcpp.c', 'Itcastcppwrapper.c'])])
+```
+
+##### 运行setup.py编译和链接Ｃ的扩展代码
+
+
+	$ python setup.py build
+
+	running build
+	running build_ext
+	building 'Itcastcpp' extension
+	creating build
+	creating build/temp.linux-x86_64-2.7
+	x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/include/python2.7 -c Itcastcpp.c -o build/temp.linux-x86_64-2.7/Itcastcpp.o
+	x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -fPIC -I/usr/include/python2.7 -c Itcastcppwrapper.c -o build/temp.linux-x86_64-2.7/Itcastcppwrapper.o
+	creating build/lib.linux-x86_64-2.7
+	x86_64-linux-gnu-gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -D_FORTIFY_SOURCE=2 -g -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security build/temp.linux-x86_64-2.7/Itcastcpp.o build/temp.linux-x86_64-2.7/Itcastcppwrapper.o -o build/lib.linux-x86_64-2.7/Itcastcpp.so
+
+	
+
+##### 从Python中导入模块和测试
+
+	$ sudo python setup.py install 
+	如果成功会看到
+	running install
+	running build
+	running build_ext
+	running install_lib
+	copying build/lib.linux-x86_64-2.7/Itcastcpp.so -> /usr/local/lib/python2.7/dist-packages
+	running install_egg_info
+	Removing /usr/local/lib/python2.7/dist-packages/Itcastcpp-0.0.0.egg-info
+	Writing /usr/local/lib/python2.7/dist-packages/Itcastcpp-0.0.0.egg-info
+
+	$ ipython
+	import  Itcastcpp
+	Itcastcpp.fac(5)
+	120
+
 
 
 ## 八. web框架Django开发
