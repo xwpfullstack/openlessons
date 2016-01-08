@@ -11,8 +11,8 @@ import Image, ImageFont, ImageDraw
 im = Image.open(myPath + inputFile)
 draw = ImageDraw.Draw(im)
 #根据图片大小确定字体大小
-fontsize = min(im.size)/8
+fontsize = min(im.size)/4
 #加文字
 font = ImageFont.truetype(fontPath + 'KhmerOS.ttf', fontsize)
-draw.text((im.size[0]-fontsize, 0), '8', font = font, fill = (0,0,255))
+draw.text((im.size[0]-fontsize, 20), '9', font = font, fill = (0,255,0))
 im.save(myPath + outputFile,"jpeg")

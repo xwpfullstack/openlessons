@@ -372,6 +372,24 @@ print res
 4. 函数体整体缩进
 5. 函数可以拥有返回值，若无返回值，返回None，相当于C中的NULL
 
+
+### 输入输出函数
+
+输入和raw_input()内置函数
+
+raw_input() 从标准输入获取数据 返回的数据是字符串类型
+
+需要使用int()进行转换
+
+	输出
+	print函数
+	>>> print "%s is %dsthello world "%("tody",1)
+	tody is 1sthello world
+	>> 重定向操作符
+	logfile = open('/tmp/mylog.txt','a')
+	print >>logfile,'error'
+	logfile.close()
+
 ### 局部变量和全局变量
 
 代码1. 局部变量作用域覆盖全局变量
@@ -659,6 +677,26 @@ Python的列表截取与字符串操作类型，如下所示：
 		8	list.reverse()				反向列表中元素
 		9	list.sort([func])			对原列表进行排序
 
+### 内建range函数
+
+	range(start,end,step)
+	>>> range(1,5) #代表从1到5(不包含5)
+	[1, 2, 3, 4]
+	>>> range(1,5,2) #代表从1到5，间隔2(不包含5)
+	[1, 3]
+	>>> range(5) #代表从0到5(不包含5)
+	[0, 1, 2, 3, 4]
+	>>>for eachNum in [0,1,2]:
+	... print eachNum
+	>>>for eachNum in range(3):
+	... print eachNum
+	>>>mystr = 'abc'
+	>>>for c in mystr:
+	... print c
+	range()函数还经常和len()函数一起用于字符串索引
+
+
+
 ### 元组Tuple
 
 Python的元组与列表类似，不同之处在于元组的元素不能修改。也可进行分片 和 连接操作.
@@ -845,9 +883,6 @@ Python字典包含了以下内置函数：
 	print tinydict # 输出完整的字典
 	print tinydict.keys() # 输出所有键
 	print tinydict.values() # 输出所有值
-### tuple元祖
-### dict字典
-### 简单函数
 
 #### Python数字类型转换
 
@@ -1106,6 +1141,109 @@ Python访问子字符串，可以使用方括号来截取字符串——即分�
 
 	mystr.isdecimal()
 
+
+
+## 时间和日期
+
+Python程序能用很多方式处理日期和时间。转换日期格式是一个常见的例行琐事。
+	
+Python有一个time and calendar模组可以帮忙.
+
+### 什么是Tick？
+
+	时间间隔是以秒为单位的浮点小数。
+	每个时间戳都以自从1970年1月1日午夜（历元）经过了多长时间来表示。
+	Python附带的受欢迎的time模块下有很多函数可以转换常见日期格式。
+	如函数time.time()用ticks计时单位返回从12:00am, January 1, 1970(epoch) 开始的记录的当前操作系统时间.
+	>>>ticks = time.time()
+	print "Number of ticks since 12:00am, January 1, 1970:", ticks
+	Number of ticks since 12:00am, January 1, 1970: 7186862.73399
+
+### 什么是时间元组
+
+	序号	属性	值
+	0	tm_year	2008
+	1	tm_mon	1 到 12
+	2	tm_mday	1 到 31
+	3	tm_hour	0 到 23
+	4	tm_min	0 到 59
+	5	tm_sec	0 到 61 (60或61 是闰秒)
+	6	tm_wday	0到6 (0是周一)
+	7	tm_yday	1 到 366(儒略历)
+	8	tm_isdst	-1, 0, 1, -1是决定是否为夏令时的旗帜
+
+### 获取当前时间
+
+从返回浮点数的时间辍方式向时间元组转换，只要将浮点数传递给如localtime之类的函数。
+
+	>>>import time;
+	>>>localtime = time.localtime(time.time())
+	>>>print "Local current time :", localtime
+	
+	Local current time : time.struct_time(tm_year=2013, tm_mon=7, 
+	tm_mday=17, tm_hour=21, tm_min=26, tm_sec=3, tm_wday=2, tm_yday=198, tm_isdst=0)
+
+###	获取格式化的时间
+
+	你可以根据需求选取各种格式，但是最简单的获取可读的时间模式的函数是asctime(): 
+	localtime = time.asctime( time.localtime(time.time()) )
+	print "Local current time :", localtime
+	Local current time : Tue Jan 13 10:17:09 2009
+
+### 获取某月日历
+
+	>>>cal = calendar.month(2008, 1)
+	>>>print "Here is the calendar:"
+	>>>print cal;
+	Here is the calendar:
+	    January 2008
+	Mo Tu We Th Fr Sa Su
+	    1  2  3  4  5  6
+	 7  8  9 10 11 12 13
+	14 15 16 17 18 19 20
+	21 22 23 24 25 26 27
+	28 29 30 31
+
+### Time模块的内置函数
+
+	1	time.asctime([tupletime])	接受时间元组并返回一个可读的形式为"Tue Dec 11 18:07:14 2008"（2008年12月11日
+									周二	18时07分14秒）的24个字符的字符串。
+	2	time.clock( )				
+								用以浮点数计算的秒数返回当前的CPU时间。用来衡量不同程序的耗时，比time.time()更有用。
+	3	time.sleep(secs)		推迟调用线程的运行，secs指秒数。
+	4	time.time( )			返回当前时间的时间戳（1970纪元后经过的浮点秒数）
+	Time模块包含了以下2个非常重要的属性：
+	序号	属性及描述
+	1	time.timezone
+		属性time.timezone是当地时区（未启动夏令时）距离格林威治的偏移秒数（>0，美洲;<=0大部分欧洲，亚洲，非洲）。
+	2	time.tzname
+		属性time.tzname包含一对根据情况的不同而不同的字符串，分别是带夏令时的本地时区名称，和不带的。
+
+### 日历（Calendar）模块
+
+	此模块的函数都是日历相关的，例如打印某月的字符月历。
+	星期一是默认的每周第一天，星期天是默认的最后一天。
+	更改设置需调用calendar.setfirstweekday()函数。模块包含了以下内置函数：
+	
+	序号	函数及描述
+	1	calendar.calendar(year,w=2,l=1,c=6) 	返回一个多行字符串格式的year年年历，3个月一行，间隔距离为c。
+												每日宽度间隔为w字符。每行长度为21* W+18+2* C。l是每星期行数。
+	2	calendar.firstweekday( )	返回当前每周起始日期的设置。默认情况下，首次载入caendar模块时返回0，即星期一。
+	3	calendar.isleap(year)		是闰年返回True，否则为false。
+	4	calendar.leapdays(y1,y2)	返回在Y1，Y2两年之间的闰年总数。
+	5	calendar.month(year,month,w=2,l=1)		返回一个多行字符串格式的year年month月日历，两行标题，一周一行。
+												每日宽度间隔为w字符。每行的长度为7* w+6。l是每星期的行数。
+	6	calendar.monthcalendar(year,month)		返回一个整数的单层嵌套列表。每个子列表装载代表一个星期的整数。
+											Year年month月外的日期都设为0;范围内的日子都由该月第几日表示，从1开始。
+	7	calendar.monthrange(year,month)			返回两个整数。
+						第一个是该月的星期几的日期码，第二个是该月的日期码。日从0（星期一）到6（星期日）;月从1到12。
+	8	calendar.prcal(year,w=2,l=1,c=6)		相当于 print calendar.calendar(year,w,l,c).
+	9	calendar.prmonth(year,month,w=2,l=1)	相当于 print calendar.calendar（year，w，l，c）。
+	10	calendar.setfirstweekday(weekday)		设置每周的起始日期码。0（星期一）到6（星期日）。
+	11	calendar.timegm(tupletime)				
+						和time.gmtime相反：接受一个时间元组形式，返回该时刻的时间辍（1970纪元后经过的浮点秒数）。
+	12	calendar.weekday(year,month,day)		返回给定日期的日期码。0（星期一）到6（星期日）。
+												月份为 1（一月） 到 12（12月）。
 
 
 ### 函数高级
@@ -1435,6 +1573,40 @@ Return[expression]结束函数，选择性地返回一个值给调用方。不�
         print "Hello, ", name
 
     fun("itcastcpp!")
+
+
+### 生成器函数
+
+生成器是这样一个函数，它记住上一次返回时在函数体中的位置。对生成器函数的第二次（或第 n 次）调用跳转至该函数中间，而上次调用的所有局部变量都保持不变。
+
+生成器不仅“记住”了它数据状态；生成器还“记住”了它在流控制构造（在命令式编程中，这种构造不只是数据值）中的位置。
+生成器的特点：
+
+     1.生成器是一个函数，而且函数的参数都会保留。
+     2.迭代到下一次的调用时，所使用的参数都是第一次所保留下的，即是说，在整个所有函数调用的参数都是第一次所调用时保留的，而不是新创建的
+     3.节约内存
+
+例子：执行到yield时，gen函数作用暂时保存，返回x的值;tmp接收下次c.send("python")，send发送过来的值，c.next()等价c.send(None)
+
+    #generation.py
+    def gen():
+        for x in xrange(4):
+            tmp = yield x
+            if tmp == "hello":
+                print "world"
+            else:
+                print "itcastcpp ", str(tmp)
+
+    >>>from generation import gen
+    >>>c=gen()
+    >>>c.next()
+    0
+    >>>c.next()
+    itcastcpp None
+    1
+    >>>c.send("python")
+    itcastcpp python
+    2
 
 
 ## 三. 面向对象
@@ -2768,6 +2940,8 @@ int test(void);
 2. 为每一个函数增加一个PyObject *Module_func()的包裹函数
 3. 为模块增加一个PyMethod DefModuleMethods[]的数组
 4. 增加模块的初始化函数void initModule()
+
+		sudo apt-get install python-dev
 
 ##### 包含Python.h头文件
 确保你的系统上安装过python，我的系统是ubuntu14.04，头文件路径为:
