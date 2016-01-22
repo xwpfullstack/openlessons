@@ -1,4 +1,5 @@
 [TOC]
+# Redis高性能缓存服务器
 ## Redis简介
 
 Redis是一个开源的key-value存储系统。与Memcached类似，Redis将大部分数据存储在内存中，支持的数据类型包括：字符串、哈希表、链表、集合、有序集合以及基于这些数据类型的相关操作。Redis使用C语言开发，在大多数像Linux、BSD和Solaris等POSIX系统上无需任何外部依赖就可以使用。Redis支持的客户端语言也非常丰富，常用的计算机语言如C、C#、C++、Object-C、PHP、Python、Java、Perl、Lua、Erlang等均有可用的客户端来访问Redis服务器。当前Redis的应用已经非常广泛，国内像新浪、淘宝，国外像Flickr、Github等均在使用Redis的缓存服务。
@@ -833,7 +834,7 @@ Redis在进行快照的过程中不会修改RDB文件，只有快照结束后才
 		100.00% <= 3 milliseconds
 		99206.34 requests per second
 
-## Redis之C/C++接口
+## Redis之C接口
 
 + 网址：
 
