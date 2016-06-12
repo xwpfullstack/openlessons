@@ -14,5 +14,5 @@ draw = ImageDraw.Draw(im)
 fontsize = min(im.size)/4
 #加文字
 font = ImageFont.truetype(fontPath + 'KhmerOS.ttf', fontsize)
-draw.text((im.size[0]-fontsize, 20), '9', font = font, fill = (0,255,0))
+draw.text((im.size[0]-fontsize, 30), '7', font = font, fill = (0,0,100))
 im.save(myPath + outputFile,"jpeg")

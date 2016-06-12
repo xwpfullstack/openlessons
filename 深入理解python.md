@@ -111,7 +111,7 @@ ubuntu14.04默认是安装了python2.7的
 
 4. 退出
 
-		exit
+		ctrl+d
 
 5. 案例
 
@@ -1481,7 +1481,7 @@ Return[expression]结束函数，选择性地返回一个值给调用方。不�
 
     @timefun
     def foo():
-        pass
+    	print "helloworld"
 
     foo()
     sleep(2)
@@ -1523,11 +1523,11 @@ Return[expression]结束函数，选择性地返回一个值给调用方。不�
 
     @timefun_arg("itcast")
     def foo():
-        pass
+    	print "I am foo"
 
     @timefun_arg("xwp")
     def too():
-        pass
+    	print "I am too"
 
     foo()
     sleep(2)

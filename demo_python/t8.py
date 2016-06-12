@@ -16,7 +16,7 @@ def getRandomColor():
 # 获得验证码图片
 def getCodePiture():
     width = 240
-    height = 60
+    height = 160
     # 创建画布
     image = Image.new('RGB', (width, height), (180,180,180))
     font = ImageFont.truetype(fontPath + 'KhmerOS.ttf', 40)

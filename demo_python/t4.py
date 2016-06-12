@@ -14,7 +14,7 @@ def getCounter(articlefilesource):
         return Counter(r)
 
 #过滤词
-stop_word = ['the', 'in', 'of', 'and', 'to', 'has', 'that', 's', 'is', 'are', 'a', 'with', 'as', 'an']
+stop_word = ['the', 'in', 'of', 'and', 'to', 'has', 'that', 's', 'is', 'are', 'a', 'with', 'as', 'an', 'was']
 
 def run(FILE_PATH):
     # 切换到目标文件所在目录

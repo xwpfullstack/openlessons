@@ -7,7 +7,7 @@ field = string.letters + string.digits
 
 #获得四个字母和数字的随机组合
 def getRandom():
-    return "".join(random.sample(field,4))
+    return "".join(random.sample(field,5))
 
 #生成的每个激活码中有几组
 def concatenate(group):
